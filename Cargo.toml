@@ -1,0 +1,15 @@
+[package]
+name = "pigeonhole"
+version = "0.1.0"
+authors = ["Matt Gibson <git@mgibson.dev>"]
+edition = "2021"
+description = "Encrypted file sync"
+readme = "README.md"
+repository = "https://github.com/mgibson1/pigeonhole"
+license = "AGPL-3.0-or-later"
+license-file = "LICENSE"
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
