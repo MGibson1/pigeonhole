@@ -1,6 +1,13 @@
 {
   "cSpell.words": [
     "cids",
-    "thiserror"
+    "dealloc",
+    "nonoverlapping",
+    "serde",
+    "thiserror",
+    "typenum",
+    "zeroize",
+    "zeroized",
+    "zeroizing"
   ]
 }
