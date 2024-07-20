@@ -12,15 +12,6 @@ pub struct ZeroizeAllocator<T: GlobalAlloc> {
 
 impl<T: GlobalAlloc> ZeroizeAllocator<T> {
     /// Creates a new `ZeroizeAllocator` with the given inner allocator.
-    ///
-    /// # Example
-    /// ```
-    /// use zeroize_allocator::ZeroizeAllocator;
-    /// use std::alloc::System;
-    /// static ALLOCATOR: zeroize_allocator::ZeroizeAllocator<std::alloc::System> =
-    ///    zeroize_allocator::ZeroizeAllocator::new(std::alloc::System);
-    /// ```
-    ///
     pub const fn new(inner_allocator: T) -> Self {
         Self {
             inner_allocator,
