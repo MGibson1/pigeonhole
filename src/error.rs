@@ -21,9 +21,6 @@ pub enum Error {
         source: argon2::Error,
     },
 
-    #[error("Invalid Key Length")]
-    InvalidKeyLength,
-
     #[error("transparent")]
     Ed25519SignatureError {
         #[from]
