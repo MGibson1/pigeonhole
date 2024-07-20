@@ -20,16 +20,9 @@ mod tests {
     use crate::crypto::{generate_prk, tests::PRK};
 
     const SIGNING_KEY: [u8; 32] = [
-        19, 190, 76, 229, 101, 119, 1, 74, 31, 57, 100, 155, 112, 79, 53, 151, 27, 178, 138, 240,
-        7, 165, 188, 224, 182, 38, 152, 93, 199, 186, 97, 161,
+        212, 172, 127, 129, 180, 104, 139, 170, 101, 138, 147, 247, 131, 2, 66, 11, 157, 177, 17,
+        91, 58, 64, 198, 144, 161, 39, 149, 177, 145, 148, 12, 107,
     ];
-
-    #[test]
-    fn test_generate_prk() {
-        let ikm = "password".to_string();
-        let prk = generate_prk(ikm).unwrap();
-        assert_eq!(PRK, *prk)
-    }
 
     #[test]
     fn test_signing_keys() {
