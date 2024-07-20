@@ -1,6 +1,8 @@
-use std::alloc::GlobalAlloc;
+use std::{alloc::GlobalAlloc, pin::Pin};
 
 use zeroize::Zeroize;
+
+pub(crate) type Zeroing<T> = Pin<Box<T>>;
 
 pub struct ZeroizeAllocator<T: GlobalAlloc> {
     pub inner_allocator: T,
@@ -128,7 +130,7 @@ mod tests {
         unsafe {
             assert_eq!(
                 std::slice::from_raw_parts(ptr, capacity),
-                &[0; STRING_SLICE.len()] // format!("{}\0", STRING_SLICE).as_bytes()
+                &[0; STRING_SLICE.len()]
             );
         }
 

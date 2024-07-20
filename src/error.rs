@@ -14,6 +14,21 @@ pub enum Error {
         #[from]
         source: FromUtf8Error,
     },
+
+    #[error("transparent")]
+    Argon2 {
+        #[from]
+        source: argon2::Error,
+    },
+
+    #[error("Invalid Key Length")]
+    InvalidKeyLength,
+
+    #[error("transparent")]
+    Ed25519SignatureError {
+        #[from]
+        source: ed25519_dalek_bip32::Error,
+    },
 }
 
 pub(crate) type Result<T> = std::result::Result<T, Error>;

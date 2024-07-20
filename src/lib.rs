@@ -1,4 +1,5 @@
 mod buf_reader;
+mod crypto;
 mod error;
 mod file;
 mod zeroize_allocator;

@@ -1,7 +1,11 @@
 {
   "cSpell.words": [
     "cids",
+    "dalek",
     "dealloc",
+    "hkdf",
+    "hmac",
+    "Keypair",
     "nonoverlapping",
     "serde",
     "thiserror",
