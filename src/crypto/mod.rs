@@ -8,20 +8,21 @@ use crate::error::{Error, Result};
 use crate::zeroize_allocator::Zeroing;
 
 fn generate_prk(ikm: String) -> Result<Zeroing<[u8; 32]>> {
-    #[cfg(test)]
-    let params = Params::new(
-        1024, // 64 MiB
-        3,
-        4,
-        Some(32),
-    );
-    #[cfg(not(test))]
-    let params = Params::new(
-        65536, // 64 MiB
-        3,
-        4,
-        Some(32),
-    );
+    let params = if cfg!(test) {
+        Params::new(
+            1024, // 64 MiB
+            3,
+            4,
+            Some(32),
+        )
+    } else {
+        Params::new(
+            65536, // 64 MiB
+            3,
+            4,
+            Some(32),
+        )
+    };
 
     let argon = Argon2::new(
         Algorithm::Argon2id,
