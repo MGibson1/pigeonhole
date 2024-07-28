@@ -1,5 +1,5 @@
-// mod aes;
-mod ed25519;
+mod aead;
+mod asym;
 
 use argon2::{Algorithm, Argon2, Params, Version};
 use sha2::Digest;
