@@ -1,0 +1,20 @@
+{
+    "version": "0.2",
+    "language": "en",
+    "words": [
+        "chacha",
+        "cids",
+        "dalek",
+        "dealloc",
+        "hkdf",
+        "hmac",
+        "Keypair",
+        "nonoverlapping",
+        "serde",
+        "thiserror",
+        "typenum",
+        "zeroize",
+        "zeroized",
+        "zeroizing"
+    ]
+}
