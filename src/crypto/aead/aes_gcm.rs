@@ -11,7 +11,7 @@ use zeroize::Zeroize;
 use crate::error::Result;
 use crate::zeroize_allocator::Zeroing;
 
-use super::{ChunkKey, EncryptedChunk, SymmetricEncryptionKey};
+use super::{ChunkKey, EncryptedChunk};
 
 const AES_GCM_KEY_NAME: &str = "aesgcm seed";
 const AES_GCM_RATCHET_NAME: &str = "aesgcm ratchet";
@@ -94,7 +94,7 @@ impl ChunkKey for AesGcmKey {
     }
 
     fn next_key(&self) -> Result<Zeroing<Self>> {
-        let hkdf = Hkdf::<Sha512>::new(Some(AES_GCM_RATCHET_NAME.as_ref()), &*self.chain_key());
+        let hkdf = Hkdf::<Sha512>::new(Some(AES_GCM_RATCHET_NAME.as_ref()), self.chain_key());
         let mut okm = Box::pin([0u8; 64]);
         hkdf.expand(&[], &mut *okm)?;
         let key = Box::pin(Self {

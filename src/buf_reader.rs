@@ -45,7 +45,7 @@ impl Iterator for BufReader {
 
         self.reader
             .by_ref()
-            .take(file::CHUNK_SIZE.into())
+            .take(file::CHUNK_SIZE)
             .read_to_string(buf)
             .map(|u| {
                 if u == 0 {
@@ -71,10 +71,10 @@ mod tests {
 
     #[test]
     fn buf_reader_creates_chunks() {
-        let mut reader = BufReader::open(PATH).unwrap();
+        let reader = BufReader::open(PATH).unwrap();
         let mut count = 0;
 
-        while let Some(_) = reader.next() {
+        for _ in reader {
             count += 1;
         }
 
@@ -83,10 +83,10 @@ mod tests {
 
     #[test]
     fn buf_reader_reads_correct_data() {
-        let mut reader = BufReader::open(PATH).unwrap();
+        let reader = BufReader::open(PATH).unwrap();
         let mut data = String::new();
 
-        while let Some(line) = reader.next() {
+        for line in reader {
             let line = line.unwrap();
             data.push_str(&line);
         }

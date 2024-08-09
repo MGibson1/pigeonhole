@@ -90,7 +90,7 @@ impl Iterator for FileIterator<'_> {
                 self.file.manifest.add(&chunk);
                 Some(Ok(chunk))
             }
-            Some(Err(e)) => Some(Err(e).map_err(Error::from)),
+            Some(Err(e)) => Some(Err(Error::from(e))),
             None => {
                 self.file.manifest.mark_complete();
                 None

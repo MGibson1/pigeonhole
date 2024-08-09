@@ -1,4 +1,4 @@
-use std::{error, io, string::FromUtf8Error};
+use std::{io, string::FromUtf8Error};
 
 use thiserror::Error;
 

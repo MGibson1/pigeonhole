@@ -108,7 +108,7 @@ mod tests {
         unsafe {
             assert_eq!(
                 std::slice::from_raw_parts(ptr, capacity),
-                format!("{}", STRING_SLICE).as_bytes()
+                STRING_SLICE.to_string().as_bytes()
             );
         }
 

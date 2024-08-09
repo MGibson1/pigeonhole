@@ -36,7 +36,7 @@ impl TryFrom<u8> for EncryptionType {
         match value {
             0 => Ok(EncryptionType::AesGcm),
             1 => Ok(EncryptionType::XChaCha20Poly1305),
-            _ => Err(SymmetricKeyError::InvalidEncryptionType(value)).map_err(Error::from)?,
+            _ => Err(Error::from(SymmetricKeyError::InvalidEncryptionType(value)))?,
         }
     }
 }

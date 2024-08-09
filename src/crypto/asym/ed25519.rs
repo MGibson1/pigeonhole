@@ -1,4 +1,4 @@
-use ed25519_dalek_bip32::{ExtendedSigningKey, SigningKey, VerifyingKey};
+use ed25519_dalek_bip32::ExtendedSigningKey;
 
 use crate::{
     error::{Error, Result},
@@ -17,7 +17,7 @@ pub(crate) fn generate(prk: Zeroing<[u8; 32]>) -> Result<Zeroing<ClassicalSignin
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::crypto::{generate_prk, tests::PRK};
+    use crate::crypto::generate_prk;
 
     const SIGNING_KEY: [u8; 32] = [
         212, 172, 127, 129, 180, 104, 139, 170, 101, 138, 147, 247, 131, 2, 66, 11, 157, 177, 17,
