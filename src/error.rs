@@ -1,4 +1,4 @@
-use std::{io, string::FromUtf8Error};
+use std::{error, io, string::FromUtf8Error};
 
 use thiserror::Error;
 
@@ -38,12 +38,6 @@ pub enum Error {
 
     #[error("transparent")]
     SymmetricCryptoKeyError(#[from] SymmetricKeyError),
-
-    #[error("transparent")]
-    Uuid(#[from] uuid::Error),
-
-    #[error("failed to parse chunk id from file stream")]
-    ParseChunkIdError,
 }
 
 #[derive(Error, Debug)]
@@ -58,6 +52,12 @@ pub enum SymmetricKeyError {
     InvalidEncryptionType(u8),
     #[error("Wrong encryption type")]
     WrongEncryptionType,
+    #[error("Failed to parse key index from file stream")]
+    ParseKeyIndexError,
+    #[error("failed to parse chunk id from file stream")]
+    ParseChunkIdError,
+    #[error("failed to parse file id from file stream")]
+    ParseFileIdError(#[from] uuid::Error),
 }
 
 pub(crate) type Result<T> = std::result::Result<T, Error>;
