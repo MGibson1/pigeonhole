@@ -1,6 +1,6 @@
 use std::u64;
 
-use aes_gcm::AesGcmKey;
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 use crate::error::{Error, Result, SymmetricKeyError};
@@ -8,7 +8,7 @@ use crate::zeroize_allocator::Zeroing;
 
 mod aes_gcm;
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 enum EncryptionType {
     AesGcm,
     XChaCha20Poly1305,
@@ -35,11 +35,23 @@ impl TryFrom<u8> for EncryptionType {
     }
 }
 
-trait RatchetingAeadKey: Sized + Send + Sync {
-    fn generate_for(prk: Zeroing<[u8; 32]>, file_key_data: &FileKeyData) -> Result<Zeroing<Self>>
+trait RootAeadKey<
+    IndexedAeadKeyType: IndexedAeadKey<RatchetingKeyType>,
+    RatchetingKeyType: RatchetingAeadKey,
+>: Sized + Send + Sync
+{
+    fn generate(prk: Zeroing<[u8; 32]>) -> Result<Zeroing<Self>>
     where
         Self: Sized;
+    fn index(&self, key_index: u32) -> Result<Zeroing<IndexedAeadKeyType>>;
+    fn key_for(&self, file_key_data: &FileKeyData) -> Result<Zeroing<RatchetingKeyType>>;
+}
 
+trait IndexedAeadKey<RatchetingKeyType: RatchetingAeadKey>: Sized + Send + Sync {
+    fn key_for(&self, file_id: Uuid) -> Result<Zeroing<RatchetingKeyType>>;
+}
+
+trait RatchetingAeadKey: Sized + Send + Sync + Iterator<Item = Zeroing<Self>> {
     fn next_key(&self) -> Result<Zeroing<Self>>;
 
     fn key_info(key_index: &u32, file_id: &Uuid) -> Vec<u8> {
@@ -74,7 +86,7 @@ struct FileKeyData {
     file_id: Uuid,
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 struct EncryptedChunk {
     encryption_type: EncryptionType,
     key_index: u32,

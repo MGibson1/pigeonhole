@@ -21,8 +21,12 @@ ed25519-dalek-bip32 = "0.3.0"
 hkdf = { version = "0.12.4", features = ["std"] }
 hmac = "0.12.1"
 rand = "0.8.5"
+serde = { version = "1.0.206", features = ["derive"] }
 sha2 = "0.10.8"
 sha256 = "1.5.0"
 thiserror = "1.0.61"
-uuid = { version = "1.10.0", features = ["v7"] }
+uuid = { version = "1.10.0", features = ["serde", "v7"] }
 zeroize = "1.8.1"
+
+[dev-dependencies]
+hex = "0.4.3"
